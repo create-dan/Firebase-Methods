@@ -26,3 +26,38 @@
     };
     
     
+    
+        useEffect(() => {
+      const id = user1 > user2 ? `${user1 + user2}` : `${user2 + user1}`;
+      let unsub = onSnapshot(doc(db, "lastMsg", id), (doc) => {
+        setData(doc.data());
+      });
+      return () => unsub();
+    }, []);
+    
+    
+    
+          const usersRef = collection(db, "users");
+      // create query object
+      const q = query(usersRef, where("uid", "not-in", [user1]));
+      // execute query
+    
+    
+    
+    
+      useEffect(() => {
+    const usersRef = collection(db, "users");
+    // create query object
+    const q = query(usersRef, where("uid", "not-in", [user1]));
+    // execute query
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      let users = [];
+      querySnapshot.forEach((doc) => {
+        users.push(doc.data());
+      });
+      setUsers(users);
+    });
+    return () => unsub();
+  }, []);
+    
+    
